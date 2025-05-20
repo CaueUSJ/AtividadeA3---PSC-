@@ -3,13 +3,14 @@ package com.biblioteca.model;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "livro")
+@Entity                 // Diz ao Spring que essa classe representa uma tabela.
+@Table(name = "livro")  // Liga a entidade à tabela livro no banco.
 public class Livro {
-       @Id
-       @GeneratedValue(strategy = GenerationType.IDENTITY)
+       @Id                                                  // Indica qual atributo é a chave primária.
+       @GeneratedValue(strategy = GenerationType.IDENTITY)  // Indica que o atributo é auto incrementado.
        private int id_livro;
        
+       // Caso o nome do atributo esteja escrito diferente no banco de dados, utilizar o comando @Column(name = "...") para ligar o atributo a coluna da tabela.
        private String titulo;
        private int ano;
        private int num_pagina;
