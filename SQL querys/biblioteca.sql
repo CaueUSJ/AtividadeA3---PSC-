@@ -1,0 +1,56 @@
+CREATE DATABASE IF NOT EXISTS biblioteca;
+USE biblioteca;
+
+CREATE TABLE IF NOT EXISTS usuario (
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(20),
+    endereco VARCHAR(100),
+    telefone VARCHAR(20),
+    email VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS editora (
+    id_editora INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(20)
+);
+
+CREATE TABLE IF NOT EXISTS genero (
+    id_genero INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS pais (
+    id_pais INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS autor(
+    id_autor INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    id_pais INT,
+    FOREIGN KEY (id_pais) REFERENCES pais(id_pais)
+);
+
+CREATE TABLE IF NOT EXISTS livro (
+    id_livro INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(200),
+    ano INT,
+    num_paginas INT,
+    isbn VARCHAR(50),
+    id_editora INT,
+    id_genero INT,
+    id_autor INT,
+    FOREIGN KEY (id_editora) REFERENCES editora(id_editora),
+    FOREIGN KEY (id_genero) REFERENCES genero(id_genero),
+    FOREIGN KEY (id_autor) REFERENCES autor(id_autor)
+);
+
+CREATE TABLE IF NOT EXISTS emprestimo (
+    id_emprestimo INT PRIMARY KEY AUTO_INCREMENT,
+    data_emprestimo DATE,
+    data_devolucao DATE,
+    id_livro INT,
+    id_usuario INT,
+    FOREIGN KEY (id_livro) REFERENCES livro(id_livro),
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+);
