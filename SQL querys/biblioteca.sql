@@ -62,6 +62,7 @@ INSERT INTO Genero (ID_Genero, Nome) VALUES (1, 'Aventura');
 SELECT * FROM autor WHERE id_autor = 2;
 INSERT INTO autor (nome, id_pais) VALUES ('Tolkien', 1);
 SELECT * FROM livro;
+SELECT * FROM pais;
 DESCRIBE autor;
 
 INSERT INTO Livro (Titulo, ano, num_paginas, isbn, id_editora, id_genero, id_autor) VALUES ('O hobbit', 1937, 310, "978857", 1, 1, 2);
