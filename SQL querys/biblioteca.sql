@@ -54,3 +54,14 @@ CREATE TABLE IF NOT EXISTS emprestimo (
     FOREIGN KEY (id_livro) REFERENCES livro(id_livro),
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
+
+INSERT INTO Pais (ID_Pais, Nome) VALUES (1, 'Japão');
+INSERT INTO Editora (Nome) VALUES ('Panini Comics');
+INSERT INTO Autor (Nome, ID_Pais) VALUES ('Isaac Asimov', 1);
+INSERT INTO Genero (ID_Genero, Nome) VALUES (1, 'Aventura');
+SELECT * FROM autor WHERE id_autor = 2;
+INSERT INTO autor (nome, id_pais) VALUES ('Tolkien', 1);
+SELECT * FROM livro;
+DESCRIBE autor;
+
+INSERT INTO Livro (Titulo, ano, num_paginas, isbn, id_editora, id_genero, id_autor) VALUES ('O hobbit', 1937, 310, "978857", 1, 1, 2);

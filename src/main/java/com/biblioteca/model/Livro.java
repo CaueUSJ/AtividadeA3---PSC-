@@ -13,7 +13,7 @@ public class Livro {
        // Caso o nome do atributo esteja escrito diferente no banco de dados, utilizar o comando @Column(name = "...") para ligar o atributo a coluna da tabela.
        private String titulo;
        private int ano;
-       private int num_pagina;
+       private int num_paginas;
        private String isbn;
        private int id_editora;
        private int id_genero;
@@ -43,12 +43,12 @@ public class Livro {
            this.ano = ano;
        }
        
-       public int getNum_pagina(){
-           return this.num_pagina;
+       public int getNum_paginas(){
+           return this.num_paginas;
        }
        
-       public void setNum_pagina(int num_pagina){
-           this.num_pagina = num_pagina;
+       public void setNum_pagina(int num_paginas){
+           this.num_paginas = num_paginas;
        }
        
        public String getIsbn(){
