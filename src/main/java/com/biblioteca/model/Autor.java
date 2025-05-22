@@ -12,10 +12,8 @@ public class Autor {
     private int id_autor;
     
     private String nome;
+    private int id_pais;
     
-    @ManyToOne
-    @JoinColumn(name = "pais_id") // Cria a coluna de chave estrangeira para o país.
-    private Pais pais;
     
     public int getId_autor(){
         return this.id_autor;
@@ -33,12 +31,12 @@ public class Autor {
         this.nome = nome;
     }
     
-    public Pais getPais(){
-        return this.pais;
+    public int getId_pais(){
+        return this.id_pais;
     }
     
-    public void setPais(Pais pais){
-        this.pais = pais;
+    public void setId_pais(int id_pais){
+        this.id_pais = id_pais;
     }
     
 }

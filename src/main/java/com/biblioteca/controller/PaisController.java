@@ -33,7 +33,7 @@ public class PaisController {
     public Pais adicinar(@RequestBody Pais pais) {
         return paisService.salvar(pais);
     }
-    
+  
     // Put - Atualizar um pais existente
     @PutMapping("/{id}")
     public Pais atualizar(@PathVariable Integer id, @RequestBody Pais pais) {

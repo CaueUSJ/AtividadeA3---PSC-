@@ -63,6 +63,12 @@ SELECT * FROM autor WHERE id_autor = 2;
 INSERT INTO autor (nome, id_pais) VALUES ('Tolkien', 1);
 SELECT * FROM livro;
 SELECT * FROM pais;
+SELECT * FROM autor;
+SELECT * FROM genero;
 DESCRIBE autor;
 
+DELETE FROM livro WHERE id_autor = 2;
+DELETE FROM autor WHERE id_autor = 2;
+
 INSERT INTO Livro (Titulo, ano, num_paginas, isbn, id_editora, id_genero, id_autor) VALUES ('O hobbit', 1937, 310, "978857", 1, 1, 2);
+INSERT INTO autor (nome, id_pais) VALUES ('Akira', 1);

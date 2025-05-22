@@ -4,28 +4,28 @@ package com.biblioteca.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table (name = "pais")
-public class Pais {
+@Table(name = "genero")
+public class Genero {
+    
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_pais;
-    
+    private int id_genero;
+
     private String nome;
-     
-    
-    public int getId_pais(){
-        return this.id_pais;
+
+    public int getId_genero() {
+        return this.id_genero;
     }
-    
-    public void setId_pais(int id_pais){
-        this.id_pais = id_pais;
+
+    public void setId_genero(int id_genero) {
+        this.id_genero = id_genero;
     }
-    
-    public String getNome(){
+
+    public String getNome() {
         return this.nome;
     }
-    
+
     public void setNome(String nome) {
         this.nome = nome;
     }

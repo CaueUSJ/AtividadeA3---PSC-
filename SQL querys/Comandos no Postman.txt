@@ -1,0 +1,35 @@
+Utilizando o Postman para cadastrar as entidades:
+
+Livro
+{
+    "titulo": "Teste",
+    "ano": 2000,
+    "num_paginas": 500,
+    "isbn": "123485",
+    "id_editora": 1,
+    "id_genero": 1,
+    "id_autor": 2
+}
+
+autor
+{
+ "nome": "Akira",
+ "id_pais": 1
+}
+
+pais
+{
+ "nome": "Japão"
+}
+
+editora
+{
+ "nome": "Panini"
+}
+
+genero
+{
+ "nome": "Aventura"
+}
+
+
