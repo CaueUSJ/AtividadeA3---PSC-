@@ -35,4 +35,8 @@ public class EmprestimoService {
             return null;
         }
     }
+    
+    public void deletar(Integer id){
+        emprestimoRepository.deleteById(id);
+    }
 }
