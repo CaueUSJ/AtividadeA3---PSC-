@@ -15,9 +15,18 @@ public class Livro {
        private int ano;
        private int num_paginas;
        private String isbn;
-       private int id_editora;
-       private int id_genero;
-       private int id_autor;
+       
+       @OneToOne
+       @JoinColumn(name = "id_editora")
+       private Editora editora;       
+       
+       @OneToOne
+       @JoinColumn(name = "id_genero")
+       private Genero genero;       
+       
+       @OneToOne
+       @JoinColumn(name = "id_autor")
+       private Autor autor;
        
        public int getId_livro(){
            return this.id_livro;
@@ -59,28 +68,28 @@ public class Livro {
            this.isbn = isbn;
        }
        
-       public int getId_editora(){
-           return this.id_editora;
+       public Editora getEditora(){
+           return this.editora;
        }
        
-       public void setId_editora(int id_editora){
-           this.id_editora = id_editora;
+       public void setEditora(Editora editora){
+           this.editora = editora;
        }
        
-       public int getId_genero(){
-           return this.id_genero;
+       public Genero getGenero(){
+           return this.genero;
        }
        
-       public void setId_genero(int id_genero){
-           this.id_genero = id_genero;
+       public void setGenero(Genero genero){
+           this.genero = genero;
        }
        
-       public int getId_autor(){
-           return this.id_autor;
+       public Autor getAutor(){
+           return this.autor;
        }
        
-       public void setId_autor(int id_autor){
-           this.id_autor = id_autor;
+       public void setAutor(Autor autor){
+           this.autor = autor;
        }
        
 }

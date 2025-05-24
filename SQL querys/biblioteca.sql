@@ -67,6 +67,8 @@ SELECT * FROM autor;
 SELECT * FROM genero;
 DESCRIBE autor;
 
+ALTER TABLE autor CHANGE COLUMN pais id_pais INT;
+
 DELETE FROM livro WHERE id_autor = 2;
 DELETE FROM autor WHERE id_autor = 2;
 

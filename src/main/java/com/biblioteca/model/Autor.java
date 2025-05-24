@@ -12,7 +12,10 @@ public class Autor {
     private int id_autor;
     
     private String nome;
-    private int id_pais;
+    
+    @OneToOne
+    @JoinColumn(name = "id_pais")
+    private Pais pais;
     
     
     public int getId_autor(){
@@ -31,12 +34,12 @@ public class Autor {
         this.nome = nome;
     }
     
-    public int getId_pais(){
-        return this.id_pais;
+    public Pais getPais(){
+        return this.pais;
     }
     
-    public void setId_pais(int id_pais){
-        this.id_pais = id_pais;
+    public void setPais(Pais id_pais){
+        this.pais = id_pais;
     }
     
 }

@@ -15,6 +15,8 @@ public class Usuario {
     private String endereco;
     private String telefone;
     private String email;
+    private String registro;
+    private String senha;
     
     public int getId_usuario(){
         return this.id_usuario;
@@ -54,6 +56,22 @@ public class Usuario {
     
     public void setEmail(String email){
         this.email = email;
+    }
+    
+    public String getRegistro(){
+        return this.registro;
+    }
+    
+    public void setRegistro(String registro){
+        this.registro = registro;
+    }
+    
+    public String getSenha(){
+        return this.senha;
+    }
+    
+    public void setSenha(String senha){
+        this.senha = senha;
     }
     
 }
