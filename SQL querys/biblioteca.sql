@@ -6,7 +6,9 @@ CREATE TABLE IF NOT EXISTS usuario (
     nome VARCHAR(20),
     endereco VARCHAR(100),
     telefone VARCHAR(20),
-    email VARCHAR(50)
+    email VARCHAR(50),
+    senha VARCHAR(20) not null,
+    regisro int not null
 );
 
 CREATE TABLE IF NOT EXISTS editora (
@@ -65,9 +67,12 @@ SELECT * FROM livro;
 SELECT * FROM pais;
 SELECT * FROM autor;
 SELECT * FROM genero;
+SELECT * FROM editora;
 DESCRIBE autor;
 
-ALTER TABLE autor CHANGE COLUMN pais id_pais INT;
+ALTER TABLE usuario CHANGE COLUMN senha senha varchar(20) not null;
+
+alter table usuario add column registro varchar(20);
 
 DELETE FROM livro WHERE id_autor = 2;
 DELETE FROM autor WHERE id_autor = 2;

@@ -29,9 +29,20 @@ public class UsuarioController {
     }
     
     // Post - Adicionar um novo usuario
-    @PostMapping
-    public Usuario adicionar(@RequestBody Usuario usuario){
+    @PostMapping("/cadastro")
+    public Usuario cadastro(@RequestBody Usuario usuario){
         return usuarioService.salvar(usuario);
+    }
+    
+    // Post
+    @PostMapping("/login")
+    public String login(@RequestBody Usuario usuario){
+        boolean  autenticado = usuarioService.autenticar(usuario.getRegistro(), usuario.getSenha());
+        if (autenticado){
+            return " Login bem-sucedido! ";
+        } else {
+            return " Registro ou senha inválidos. ";
+        }
     }
     
     // Put - Atualizar um usuario existente

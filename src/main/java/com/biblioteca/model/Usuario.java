@@ -18,6 +18,16 @@ public class Usuario {
     private String registro;
     private String senha;
     
+ 
+    public Usuario(){
+        
+    }
+    
+    public Usuario(String registro, String senha) {
+        this.registro = registro;
+        this.senha = senha;
+    }   
+    
     public int getId_usuario(){
         return this.id_usuario;
     }

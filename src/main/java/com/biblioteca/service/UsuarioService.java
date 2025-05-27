@@ -39,4 +39,9 @@ public class UsuarioService {
     public void deletar(Integer id){
         usuarioRepository.deleteById(id);
     }
+    
+    public boolean autenticar(String registro, String senha){
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByRegistro(registro);
+        return usuarioOpt.isPresent() && usuarioOpt.get().getSenha().equals(senha);
+    }
 }
