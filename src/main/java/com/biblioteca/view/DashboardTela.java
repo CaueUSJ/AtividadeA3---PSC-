@@ -27,7 +27,7 @@ public class DashboardTela extends JFrame{
         header.setBackground(new Color(220, 220, 220));
         header.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
 
-        JLabel lblUsuario = new JLabel("Usuário: " + nomeUsuario + " | Registro: " + registroUsuario);
+        JLabel lblUsuario = new JLabel("Usuário: " + nomeUsuario + "  |  Registro: " + registroUsuario);
         JButton btnSair = new JButton("Sair");
 
         header.add(lblUsuario, BorderLayout.WEST);

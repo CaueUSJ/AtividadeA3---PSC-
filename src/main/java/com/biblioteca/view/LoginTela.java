@@ -18,29 +18,37 @@ public class LoginTela extends JFrame {
     public LoginTela() {
 
         setTitle("Login");
-        setSize(300, 200);
+        setSize(250, 200);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new GridLayout(3, 2, 10, 10));
-
-
-        txtRegistro = new JTextField(15);
-        txtSenha = new JPasswordField(15);
+        setLayout(new BorderLayout(10, 10)); // layout principal da janela
+        
+        // Painel dos campos
+        
+        JPanel painelCampos = new JPanel(new GridLayout(2, 2, 10, 10));
+        painelCampos.setBorder(BorderFactory.createEmptyBorder(20, 30, 10, 30));
+        
+        txtRegistro = new JTextField(20);
+        txtSenha = new JPasswordField(20);
+  
+        painelCampos.add(new JLabel("Registro: "));
+        painelCampos.add(txtRegistro);
+        painelCampos.add(new JLabel("Senha: "));
+        painelCampos.add(txtSenha);
+        
+        // Painel do botão
         btnEntrar = new JButton("Entrar");
-
-
-        JPanel painel = new JPanel();
-        painel.setLayout(new GridLayout(3, 2));
-        painel.add(new JLabel("Registro: "));
-        painel.add(txtRegistro);
-        painel.add(new JLabel("Senha: "));
-        painel.add(txtSenha);
-        painel.add(new JLabel(""));
-        painel.add(btnEntrar);
+        JPanel painelBotao = new JPanel();
+        
+        painelBotao.setLayout(new FlowLayout(FlowLayout.CENTER));
+        painelBotao.add(btnEntrar);
         
         btnEntrar.addActionListener(e -> validarLogin());
         
-        add(painel);
+        // Adicionar tudo à tela
+        add(painelCampos, BorderLayout.CENTER);
+        add(painelBotao, BorderLayout.SOUTH);
+        
         setVisible(true);
 
     }
@@ -65,11 +73,14 @@ public class LoginTela extends JFrame {
             ResultSet rs = stmt.executeQuery();
             
             if (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Login bem-sucedido! ");
+                
+                String nome = rs.getString("nome");
+                
+                //JOptionPane.showMessageDialog(null, "Login bem-sucedido! ");
                 
                 dispose(); // Fecha a tela de login
                 // Abre o sistema principal
-                DashboardTela dashboardTela = new DashboardTela("NomeUsuario", "123456");
+                DashboardTela dashboardTela = new DashboardTela(nome, registro);
                 dashboardTela.setVisible(true);
                 
             } else {
