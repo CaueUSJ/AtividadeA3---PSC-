@@ -68,6 +68,7 @@ SELECT * FROM pais;
 SELECT * FROM autor;
 SELECT * FROM genero;
 SELECT * FROM editora;
+SELECT * FROM usuario;
 DESCRIBE autor;
 
 ALTER TABLE usuario CHANGE COLUMN senha senha varchar(20) not null;
