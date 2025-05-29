@@ -73,10 +73,11 @@ DESCRIBE autor;
 
 ALTER TABLE usuario CHANGE COLUMN senha senha varchar(20) not null;
 
-alter table usuario add column registro varchar(20);
+alter table usuario add CONSTRAINT registro UNIQUE (registro);
 
 DELETE FROM livro WHERE id_autor = 2;
 DELETE FROM autor WHERE id_autor = 2;
 
 INSERT INTO Livro (Titulo, ano, num_paginas, isbn, id_editora, id_genero, id_autor) VALUES ('O hobbit', 1937, 310, "978857", 1, 1, 2);
 INSERT INTO autor (nome, id_pais) VALUES ('Akira', 1);
+INSERT INTO usuario (nome, endereco, telefone, email, registro, senha) VALUES ('Danilo F', 'Rua Y', '(11) 123456789', 'danilo@email.com', '123449', 'senha');

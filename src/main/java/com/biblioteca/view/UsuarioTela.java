@@ -72,9 +72,12 @@ public class UsuarioTela extends JFrame {
         painelCentro.add(painelBotoes, BorderLayout.EAST);
         add(painelCentro, BorderLayout.CENTER);
 
-        // === Eventos dos botões ===
+        // === Eventos dos botões ===        
+        btnAdicionar.addActionListener(e -> {
+            new UsuarioFormDialog(this).setVisible(true);
+        });
+        
         /*
-        btnAdicionar.addActionListener(e -> abrirFormularioUsuario(null));
         btnEditar.addActionListener(e -> {
             int linhaSelecionada = tabelaUsuarios.getSelectedRow();
             if (linhaSelecionada >= 0) {
@@ -83,10 +86,11 @@ public class UsuarioTela extends JFrame {
                 JOptionPane.showMessageDialog(this, "Selecione um usuário para editar.");
             }
         });
-
+        */
+        
         btnExcluir.addActionListener(e -> excluirUsuario());
         btnAtualizar.addActionListener(e -> carregarUsuarios());
-        */
+        
 
         carregarUsuarios();
 
@@ -131,6 +135,11 @@ public class UsuarioTela extends JFrame {
 
     private void excluirUsuario() {
         int linha = tabelaUsuarios.getSelectedRow();
+        
+        String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
+        String usuarioBD = "root";
+        String senhaBD = "biblioteca2025";        
+        
         if (linha < 0) {
             JOptionPane.showMessageDialog(this, "Selecione um usuário para excluir.");
             return;
@@ -138,7 +147,7 @@ public class UsuarioTela extends JFrame {
         String registro = modeloTabela.getValueAt(linha, 0).toString();
         int confirm = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?", "Confirmação", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "usuario", "senha")) {
+            try (Connection conn = DriverManager.getConnection(urlBD, usuarioBD, senhaBD)) {
                 String sql = "DELETE FROM usuario WHERE registro = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, registro);
@@ -151,11 +160,11 @@ public class UsuarioTela extends JFrame {
         }
     }
     
-    /*
-    private void abrirFormularioUsuario(String[] dados) {
-        new FormularioUsuario(this, dados); // passa a tela atual para atualizar depois
-    }
-    */
+    
+    //private void abrirFormularioUsuario(String[] dados) {
+    //    new UsuarioFormDialog(this, dados); // passa a tela atual para atualizar depois
+    //}
+    
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
