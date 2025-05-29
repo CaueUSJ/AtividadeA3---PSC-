@@ -56,12 +56,14 @@ public class DashboardTela extends JFrame{
         add(header, BorderLayout.NORTH);
         add(painel, BorderLayout.CENTER);
         
-        /*
+        
         // Ações dos botões
         btnUsuarios.addActionListener(e -> {
-            new UsuarioTela().setVisible(true); // Abrir tela de usuários
+            dispose();
+            new UsuarioTela(nomeUsuario, registroUsuario).setVisible(true); // Abrir tela de usuários
         });
-
+        
+        /*
         btnLivros.addActionListener(e -> {
             new LivroTela().setVisible(true); // Abrir tela de livros
         });
