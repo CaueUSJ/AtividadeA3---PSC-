@@ -19,8 +19,13 @@ public class Usuario {
     private String senha;
     
  
-    public Usuario(){
-        
+    public Usuario(String nome, String endereco, String telefone, String email, String registro, String senha){
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.email = email;
+        this.registro = registro;
+        this.senha = senha;
     }
     
     public Usuario(String registro, String senha) {

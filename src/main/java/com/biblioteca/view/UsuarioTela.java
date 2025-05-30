@@ -125,13 +125,6 @@ public class UsuarioTela extends JFrame {
         }
     }
 
-    private String[] obterDadosLinha(int linha) {
-        String[] dados = new String[5];
-        for (int i = 0; i < 5; i++) {
-            dados[i] = modeloTabela.getValueAt(linha, i).toString();
-        }
-        return dados;
-    }
 
     private void excluirUsuario() {
         int linha = tabelaUsuarios.getSelectedRow();
