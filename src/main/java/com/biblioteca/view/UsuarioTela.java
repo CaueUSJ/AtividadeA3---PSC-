@@ -16,7 +16,7 @@ public class UsuarioTela extends JFrame {
         setTitle("Gerenciamento de Usuários");
         setSize(800, 500);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         // ===== HEADER =====
@@ -103,7 +103,7 @@ public class UsuarioTela extends JFrame {
         
         String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
         String usuarioBD = "root";
-        String senhaBD = "biblioteca2025";
+        String senhaBD = "usjt";
         
         try (Connection conn = DriverManager.getConnection(urlBD, usuarioBD, senhaBD)) {
             String sql = "SELECT * FROM usuario";
@@ -138,7 +138,7 @@ public class UsuarioTela extends JFrame {
         
         String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
         String usuarioBD = "root";
-        String senhaBD = "biblioteca2025";        
+        String senhaBD = "usjt";        
         
         if (linha < 0) {
             JOptionPane.showMessageDialog(this, "Selecione um usuário para excluir.");

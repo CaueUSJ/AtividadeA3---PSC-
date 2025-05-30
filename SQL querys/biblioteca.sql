@@ -8,8 +8,10 @@ CREATE TABLE IF NOT EXISTS usuario (
     telefone VARCHAR(20),
     email VARCHAR(50),
     senha VARCHAR(20) not null,
-    regisro int not null
+    registro int not null
 );
+
+ALTER TABLE usuario ADD COLUMN registro VARCHAR(20);
 
 CREATE TABLE IF NOT EXISTS editora (
     id_editora INT PRIMARY KEY AUTO_INCREMENT,
@@ -73,11 +75,11 @@ DESCRIBE autor;
 
 ALTER TABLE usuario CHANGE COLUMN senha senha varchar(20) not null;
 
-alter table usuario add CONSTRAINT registro UNIQUE (registro);
+insert into usuario column registro varchar(20) not null;
 
 DELETE FROM livro WHERE id_autor = 2;
 DELETE FROM autor WHERE id_autor = 2;
 
 INSERT INTO Livro (Titulo, ano, num_paginas, isbn, id_editora, id_genero, id_autor) VALUES ('O hobbit', 1937, 310, "978857", 1, 1, 2);
 INSERT INTO autor (nome, id_pais) VALUES ('Akira', 1);
-INSERT INTO usuario (nome, endereco, telefone, email, registro, senha) VALUES ('Danilo F', 'Rua Y', '(11) 123456789', 'danilo@email.com', '123449', 'senha');
+INSERT INTO usuario (nome, endereco, telefone, email, registro, senha) VALUES ('ADM', 'Rua Y', '(11) 123456789', 'danilo@email.com', 'adm', 'adm');
