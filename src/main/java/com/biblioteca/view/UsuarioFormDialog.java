@@ -3,13 +3,10 @@ package com.biblioteca.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import com.biblioteca.model.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsuarioFormDialog extends JDialog {
@@ -24,6 +21,7 @@ public class UsuarioFormDialog extends JDialog {
     private JButton btnCancelar;
 
     public UsuarioFormDialog(Frame parent) {
+        
         super(parent, "Cadastro de Usuário", true);
         setSize(400, 300);
         setLocationRelativeTo(parent);
@@ -69,6 +67,7 @@ public class UsuarioFormDialog extends JDialog {
         btnCancelar.addActionListener(e -> dispose());
 
         setVisible(true);
+        
     }
 
     private void salvarUsuario() {
@@ -85,7 +84,7 @@ public class UsuarioFormDialog extends JDialog {
                 JOptionPane.showMessageDialog(this, "Todos os campos devem ser preenchidos.");
                 return;
             }
-
+            
             Usuario novoUsuario = new Usuario(nome, endereco, telefone, email, registro, senha);
             if (adicionar(novoUsuario)) {
                 JOptionPane.showMessageDialog(this, "Usuário salvo com sucesso!");
@@ -95,16 +94,17 @@ public class UsuarioFormDialog extends JDialog {
             }
         }  catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Falha 1.");
-        }    
+        }
         
     }
     
     public boolean adicionar(Usuario usuario) {
+        
         String sql = "INSERT INTO usuario (nome, endereco, telefone, email, registro, senha) VALUES (?, ?, ?, ?, ?, ?)";
         
         String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
         String usuarioBD = "root";
-        String senhaBD = "usjt";
+        String senhaBD = "biblioteca2025";
         
         try (Connection conn = DriverManager.getConnection(urlBD, usuarioBD, senhaBD)) {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -119,10 +119,9 @@ public class UsuarioFormDialog extends JDialog {
             int rows = stmt.executeUpdate();
             return rows > 0;
         } catch (SQLException e) {
-            System.out.println("Falha 2" + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Falha 2.");
             return false;
-        }
-        
+        }        
         
     }
     
