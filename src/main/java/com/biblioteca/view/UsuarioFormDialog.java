@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UsuarioFormDialog extends JDialog {
+public class UsuarioFormDialog extends JFrame {
 
     private JTextField txtRegistro;
     private JTextField txtNome;
@@ -20,11 +20,13 @@ public class UsuarioFormDialog extends JDialog {
     private JButton btnSalvar;
     private JButton btnCancelar;
 
-    public UsuarioFormDialog(Frame parent) {
+    public UsuarioFormDialog(Usuario usuarioExistente) {
         
-        super(parent, "Cadastro de Usuário", true);
+        boolean editar = usuarioExistente != null;
+        
+        setTitle("Sistema Biblioteca - Dashboard");
         setSize(400, 300);
-        setLocationRelativeTo(parent);
+        setLocationRelativeTo(null); // Centraliza a janela
         setLayout(new BorderLayout());
 
         JPanel painelCampos = new JPanel(new GridLayout(6, 2, 10, 10));
@@ -53,6 +55,17 @@ public class UsuarioFormDialog extends JDialog {
         JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         btnSalvar = new JButton("Salvar");
         btnCancelar = new JButton("Cancelar");
+        
+        if (editar) {
+            txtRegistro.setText(usuarioExistente.getRegistro());
+            txtNome.setText(usuarioExistente.getNome());
+            txtEndereco.setText(usuarioExistente.getEndereco());
+            txtTelefone.setText(usuarioExistente.getTelefone());
+            txtEmail.setText(usuarioExistente.getEmail());
+            txtSenha.setText(usuarioExistente.getSenha());
+
+            txtRegistro.setEditable(false); // Registro não pode ser alterado
+        }
 
         painelBotoes.add(btnSalvar);
         painelBotoes.add(btnCancelar);
@@ -61,7 +74,7 @@ public class UsuarioFormDialog extends JDialog {
         add(painelBotoes, BorderLayout.SOUTH);
 
         // Evento de clique no botão salvar        
-        btnSalvar.addActionListener(e -> salvarUsuario());
+        btnSalvar.addActionListener(e -> salvarUsuario(usuarioExistente));
         
         // Evento cancelar
         btnCancelar.addActionListener(e -> dispose());
@@ -70,7 +83,9 @@ public class UsuarioFormDialog extends JDialog {
         
     }
 
-    private void salvarUsuario() {
+    private void salvarUsuario(Usuario usuarioExistente) {
+        
+        boolean editar = usuarioExistente != null;
         
         try {
             String registro = txtRegistro.getText();
@@ -85,20 +100,60 @@ public class UsuarioFormDialog extends JDialog {
                 return;
             }
             
-            Usuario novoUsuario = new Usuario(nome, endereco, telefone, email, registro, senha);
-            if (adicionar(novoUsuario)) {
-                JOptionPane.showMessageDialog(this, "Usuário salvo com sucesso!");
-                dispose();
+            if (editar) {
+                Usuario usuarioEditado = new Usuario(nome, endereco, telefone, email, usuarioExistente.getRegistro(), senha);
+                if(editarUsuario(usuarioEditado)){
+                    JOptionPane.showMessageDialog(this, "Usuário atualizado com sucesso");
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Falha 5.");
+                }
+                
             } else {
-                JOptionPane.showMessageDialog(this, "Falha 3.");
-            }
+                Usuario novoUsuario = new Usuario(nome, endereco, telefone, email, registro, senha);
+                if (adicionarUsuario(novoUsuario)) {
+                    JOptionPane.showMessageDialog(this, "Usuário salvo com sucesso!");
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Falha 3.");
+                }
+            }            
+            
+            
         }  catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Falha 1.");
         }
         
     }
     
-    public boolean adicionar(Usuario usuario) {
+    public boolean editarUsuario(Usuario usuario){
+        String sql = "UPDATE usuario SET nome = ?, endereco = ?, telefone = ?, email = ?, senha = ? WHERE registro = ?";
+        
+        String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
+        String usuarioBD = "root";
+        String senhaBD = "biblioteca2025";
+        
+        try (Connection conn = DriverManager.getConnection(urlBD, usuarioBD, senhaBD)) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getEndereco());
+            stmt.setString(3, usuario.getTelefone());
+            stmt.setString(4, usuario.getEmail());
+            stmt.setString(5, usuario.getSenha());
+            stmt.setString(6, usuario.getRegistro());
+            
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Falha 4.");
+            return false;
+        }
+        
+    }
+    
+    public boolean adicionarUsuario(Usuario usuario) {
         
         String sql = "INSERT INTO usuario (nome, endereco, telefone, email, registro, senha) VALUES (?, ?, ?, ?, ?, ?)";
         
@@ -118,6 +173,7 @@ public class UsuarioFormDialog extends JDialog {
             
             int rows = stmt.executeUpdate();
             return rows > 0;
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Falha 2.");
             return false;

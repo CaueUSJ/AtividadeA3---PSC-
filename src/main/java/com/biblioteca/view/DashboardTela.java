@@ -63,11 +63,13 @@ public class DashboardTela extends JFrame{
             new UsuarioTela(nomeUsuario, registroUsuario).setVisible(true); // Abrir tela de usuários
         });
         
-        /*
+        
         btnLivros.addActionListener(e -> {
-            new LivroTela().setVisible(true); // Abrir tela de livros
+            dispose();
+            new LivroTela(nomeUsuario, registroUsuario).setVisible(true); // Abrir tela de livros
         });
-
+        
+        /*
         btnEmprestimos.addActionListener(e -> {
             new EmprestimoTela().setVisible(true); // Abrir tela de empréstimos
         });

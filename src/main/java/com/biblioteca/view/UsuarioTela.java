@@ -5,13 +5,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
+import com.biblioteca.model.Usuario;
 
 
 public class UsuarioTela extends JFrame {
 
     private JTable tabelaUsuarios;
     private DefaultTableModel modeloTabela;
-
+    
     public UsuarioTela(String nomeUsuario, String registroUsuario) {
         setTitle("Gerenciamento de Usuários");
         setSize(800, 500);
@@ -40,7 +41,7 @@ public class UsuarioTela extends JFrame {
         JPanel painelCentro = new JPanel(new BorderLayout());
 
         // === TABELA DE USUÁRIOS ===
-        modeloTabela = new DefaultTableModel(new String[]{"Registro", "Nome", "Endereço", "Telefone", "E-mail"}, 0);
+        modeloTabela = new DefaultTableModel(new String[]{"Registro", "Nome", "Endereço", "Telefone", "E-mail", "Senha"}, 0);
         tabelaUsuarios = new JTable(modeloTabela);
         JScrollPane scrollTabela = new JScrollPane(tabelaUsuarios);
         painelCentro.add(scrollTabela, BorderLayout.CENTER);
@@ -74,19 +75,21 @@ public class UsuarioTela extends JFrame {
 
         // === Eventos dos botões ===        
         btnAdicionar.addActionListener(e -> {
-            new UsuarioFormDialog(this).setVisible(true);
+            new UsuarioFormDialog(null).setVisible(true);
+            carregarUsuarios();
         });
         
-        /*
         btnEditar.addActionListener(e -> {
             int linhaSelecionada = tabelaUsuarios.getSelectedRow();
             if (linhaSelecionada >= 0) {
-                abrirFormularioUsuario(obterDadosLinha(linhaSelecionada));
+                Usuario usuarioSelecionado = obterDadosLinha(linhaSelecionada);
+                new UsuarioFormDialog(usuarioSelecionado).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Selecione um usuário para editar.");
+                return;
             }
+            carregarUsuarios();
         });
-        */
         
         btnExcluir.addActionListener(e -> excluirUsuario());
         btnAtualizar.addActionListener(e -> carregarUsuarios());
@@ -98,7 +101,8 @@ public class UsuarioTela extends JFrame {
     }
 
     // === Função para carregar dados do banco na tabela ===
-    private void carregarUsuarios() {
+
+    public void carregarUsuarios() {
         modeloTabela.setRowCount(0); // Limpa a tabela
         
         String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
@@ -116,7 +120,8 @@ public class UsuarioTela extends JFrame {
                     rs.getString("nome"),
                     rs.getString("endereco"),
                     rs.getString("telefone"),
-                    rs.getString("email")
+                    rs.getString("email"),
+                    rs.getString("Senha")
                 });
             }
 
@@ -125,6 +130,16 @@ public class UsuarioTela extends JFrame {
         }
     }
 
+    private Usuario obterDadosLinha(int linha) {        
+        String registro = (String) modeloTabela.getValueAt(linha, 0);        
+        String nome = (String) modeloTabela.getValueAt(linha, 1); 
+        String endereco = (String) modeloTabela.getValueAt(linha, 2); 
+        String telefone = (String) modeloTabela.getValueAt(linha, 3); 
+        String email = (String) modeloTabela.getValueAt(linha, 4); 
+        String senha = (String) modeloTabela.getValueAt(linha, 5);
+        
+        return new Usuario(nome, endereco, telefone, email, registro, senha);
+    }    
 
     private void excluirUsuario() {
         int linha = tabelaUsuarios.getSelectedRow();
@@ -152,11 +167,6 @@ public class UsuarioTela extends JFrame {
             }
         }
     }
-    
-    
-    //private void abrirFormularioUsuario(String[] dados) {
-    //    new UsuarioFormDialog(this, dados); // passa a tela atual para atualizar depois
-    //}
     
     
     public static void main(String[] args) {
