@@ -5,22 +5,20 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-
-public class DashboardTela extends JFrame{
-        
+public class DashboardUsuarioTela extends JFrame {
+    
     private String nomeUsuario;
     private String registroUsuario;
     
-    public DashboardTela(String nomeUsuario, String registroUsuario) {
+    public DashboardUsuarioTela(String nomeUsuario, String registroUsuario) {
         
         this.nomeUsuario = nomeUsuario;
-        this.registroUsuario = registroUsuario;
-        
-        setTitle("Sistema Biblioteca - Dashboard");
+        this.registroUsuario = registroUsuario;    
+       
+        setTitle("Sistema de Usuarios - Dashboard");
         setSize(500, 350);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centraliza a janela
-        
         
         // ===== TOPO - Header =====
         JPanel header = new JPanel(new BorderLayout());
@@ -28,7 +26,7 @@ public class DashboardTela extends JFrame{
         header.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
 
         JLabel lblUsuario = new JLabel("Usuário: " + nomeUsuario + "  |  Registro: " + registroUsuario);
-        JButton btnSair = new JButton("Sair");
+        JButton btnSair = new JButton("Voltar");
 
         header.add(lblUsuario, BorderLayout.WEST);
         header.add(btnSair, BorderLayout.EAST);
@@ -36,49 +34,40 @@ public class DashboardTela extends JFrame{
         // Ação do botão Sair
         btnSair.addActionListener(e -> {
             dispose(); // fecha a tela atual
-            new LoginTela().setVisible(true); // volta à tela de login
+            new DashboardTela(nomeUsuario, registroUsuario).setVisible(true);
         });
         
-
         // Painel principal com layout de grade
-        JPanel painel = new JPanel(new GridLayout(3, 1, 10, 10));
+        JPanel painel = new JPanel(new GridLayout(2, 1, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
         
-        JButton btnLivros = new JButton("Livros");
-        JButton btnEmprestimos = new JButton("Empréstimos");
-        JButton btnUsuarios = new JButton("Usuários");
+        JButton btnAdm = new JButton("Administradores");
+        JButton btnLeitor = new JButton("Leitores");
 
         painel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50)); // Margem
-        painel.add(btnLivros);
-        painel.add(btnEmprestimos);
-        painel.add(btnUsuarios);
+        painel.add(btnAdm);
+        painel.add(btnLeitor);
 
         add(header, BorderLayout.NORTH);
         add(painel, BorderLayout.CENTER);
         
-        
         // Ações dos botões
-        btnUsuarios.addActionListener(e -> {
+        btnAdm.addActionListener(e -> {
             dispose();
-            new DashboardUsuarioTela(nomeUsuario, registroUsuario).setVisible(true); // Abrir tela de usuários
+            new UsuarioTela(nomeUsuario, registroUsuario).setVisible(true); // Abrir tela de usuários
         });
         
         
-        btnLivros.addActionListener(e -> {
+        btnLeitor.addActionListener(e -> {
             dispose();
-            new LivroTela(nomeUsuario, registroUsuario).setVisible(true); // Abrir tela de livros
-        });
-        
-        
-        btnEmprestimos.addActionListener(e -> {
-            new EmprestimoTela(nomeUsuario, registroUsuario).setVisible(true); // Abrir tela de empréstimos
+            new LeitorTela(nomeUsuario, registroUsuario).setVisible(true);
         });
         
     }
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new DashboardTela("NomeUsuario", "123456").setVisible(true);
+            new DashboardUsuarioTela("NomeUsuario", "123456").setVisible(true);
         });
     }
     

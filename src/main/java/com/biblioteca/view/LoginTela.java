@@ -61,7 +61,7 @@ public class LoginTela extends JFrame {
         
         String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
         String usuarioBD = "root";
-        String senhaBD = "biblioteca2025";
+        String senhaBD = "usjt";
         
         
         try (Connection conn = DriverManager.getConnection(urlBD, usuarioBD, senhaBD)) {

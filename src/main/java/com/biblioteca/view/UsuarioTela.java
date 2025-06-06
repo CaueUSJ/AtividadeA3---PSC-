@@ -29,7 +29,7 @@ public class UsuarioTela extends JFrame {
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
             dispose(); // Fecha a tela atual
-            new DashboardTela(nomeUsuario, registroUsuario).setVisible(true); // Retorna para tela de Dashboard
+            new DashboardUsuarioTela(nomeUsuario, registroUsuario).setVisible(true); // Retorna para tela de Dashboard
         });
 
         header.add(lblUsuario, BorderLayout.WEST);
@@ -107,7 +107,7 @@ public class UsuarioTela extends JFrame {
         
         String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
         String usuarioBD = "root";
-        String senhaBD = "biblioteca2025";
+        String senhaBD = "usjt";
         
         try (Connection conn = DriverManager.getConnection(urlBD, usuarioBD, senhaBD)) {
             String sql = "SELECT * FROM usuario";
@@ -146,7 +146,7 @@ public class UsuarioTela extends JFrame {
         
         String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
         String usuarioBD = "root";
-        String senhaBD = "biblioteca2025";        
+        String senhaBD = "usjt";        
         
         if (linha < 0) {
             JOptionPane.showMessageDialog(this, "Selecione um usuário para excluir.");

@@ -137,7 +137,7 @@ public class LivroFormDialog extends JFrame {
         
         String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
         String usuarioBD = "root";
-        String senhaBD = "biblioteca2025";
+        String senhaBD = "usjt";
         
         try (Connection conn = DriverManager.getConnection(urlBD, usuarioBD, senhaBD)) {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -166,7 +166,7 @@ public class LivroFormDialog extends JFrame {
         
         String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
         String usuarioBD = "root";
-        String senhaBD = "biblioteca2025";
+        String senhaBD = "usjt";
         
         try (Connection conn = DriverManager.getConnection(urlBD, usuarioBD, senhaBD)) {
             PreparedStatement stmt = conn.prepareStatement(sql);

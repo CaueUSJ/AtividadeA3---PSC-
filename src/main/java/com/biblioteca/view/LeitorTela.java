@@ -5,32 +5,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
-import com.biblioteca.model.Usuario;
-import com.biblioteca.model.Livro;
+import com.biblioteca.model.Leitor;
 
-public class LivroTela extends JFrame {
+public class LeitorTela extends JFrame {
     
-    private JTable tabelaLivros;
+    private JTable tabelaLeitor;
     private DefaultTableModel modeloTabela;
     
-    public LivroTela(String nomeUsuario, String registroUsuario) {
+    public LeitorTela(String nomeUsuario, String registroUsuario){
         
-        setTitle("Gerenciamento de Livros");
-        setSize(1000, 500);
+        setTitle("Gerenciamento deos leitores");
+        setSize(800, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
-        // ----Header----
+        // ===== HEADER =====
         JPanel header = new JPanel(new BorderLayout());
-        header.setBackground(new Color(220,220,220));
-        header.setBorder(BorderFactory.createEmptyBorder(10,10,10,15));
-        
+        header.setBackground(new Color(220, 220, 220));
+        header.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 15));
+
         JLabel lblUsuario = new JLabel("Usuário: " + nomeUsuario + "  |  Registro: " + registroUsuario);
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(e -> {
             dispose(); // Fecha a tela atual
-            new DashboardTela(nomeUsuario, registroUsuario).setVisible(true); // Retorna para tela de Dashboard
+            new DashboardUsuarioTela(nomeUsuario, registroUsuario).setVisible(true); // Retorna para tela de Dashboard
         });
         
         header.add(lblUsuario, BorderLayout.WEST);
@@ -40,13 +39,14 @@ public class LivroTela extends JFrame {
         
         // ===== PAINEL CENTRAL (tabela à esquerda, botões à direita) =====
         JPanel painelCentro = new JPanel(new BorderLayout());
-        
+
         // === TABELA DE USUÁRIOS ===
-        modeloTabela = new DefaultTableModel(new String[]{"Titulo", "Autor", "Genero", "Editora", "Num. Págs.", "Ano", "ISBN"}, 0);
-        tabelaLivros = new JTable(modeloTabela);
-        JScrollPane scrollTabela = new JScrollPane(tabelaLivros);
+        modeloTabela = new DefaultTableModel(new String[]{"Registro", "Nome", "Endereço", "Telefone", "E-mail"}, 0);
+        tabelaLeitor = new JTable(modeloTabela);
+        JScrollPane scrollTabela = new JScrollPane(tabelaLeitor);
         painelCentro.add(scrollTabela, BorderLayout.CENTER);
         
+        // === PAINEL DE BOTÕES ===
         JPanel painelBotoes = new JPanel();
         painelBotoes.setLayout(new BoxLayout(painelBotoes, BoxLayout.Y_AXIS));
         painelBotoes.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -73,35 +73,39 @@ public class LivroTela extends JFrame {
         painelCentro.add(painelBotoes, BorderLayout.EAST);
         add(painelCentro, BorderLayout.CENTER);
         
-        // === Eventos dos botões ===
+        // === Eventos dos botões === 
+        /*
         btnAdicionar.addActionListener(e -> {
-            new LivroFormDialog(null).setVisible(true);
-            carregarLivros();
+            new UsuarioFormDialog(null).setVisible(true);
+            carregarUsuarios();
         });
         
-       
         btnEditar.addActionListener(e -> {
-            int linhaSelecionada = tabelaLivros.getSelectedRow();
+            int linhaSelecionada = tabelaUsuarios.getSelectedRow();
             if (linhaSelecionada >= 0) {
-                Livro livroSelecionado = obterDadosLinha(linhaSelecionada);
-                new LivroFormDialog(livroSelecionado).setVisible(true);
+                Usuario usuarioSelecionado = obterDadosLinha(linhaSelecionada);
+                new UsuarioFormDialog(usuarioSelecionado).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Selecione um usuário para editar.");
                 return;
             }
-            carregarLivros();
+            carregarUsuarios();
         });
+*/
         
-        btnExcluir.addActionListener(e -> excluirLivro());
-        btnAtualizar.addActionListener(e -> carregarLivros());
+        btnExcluir.addActionListener(e -> excluirLeitor());
+        btnAtualizar.addActionListener(e -> carregarLeitores());
         
 
-        carregarLivros();
+        carregarLeitores();
 
         setVisible(true);
+        
     }
     
-    public void carregarLivros() {
+    // === Função para carregar dados do banco na tabela ===
+
+    public void carregarLeitores() {
         modeloTabela.setRowCount(0); // Limpa a tabela
         
         String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
@@ -109,71 +113,64 @@ public class LivroTela extends JFrame {
         String senhaBD = "usjt";
         
         try (Connection conn = DriverManager.getConnection(urlBD, usuarioBD, senhaBD)) {
-            String sql = "SELECT * FROM livro";
+            String sql = "SELECT * FROM leitor";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
                 modeloTabela.addRow(new Object[]{
-                    rs.getString("titulo"),
-                    rs.getString("Autor"),
-                    rs.getString("Genero"),
-                    rs.getString("Editora"),
-                    rs.getString("num_paginas"),
-                    rs.getString("Ano"),
-                    rs.getString("isbn")
+                    rs.getString("registro"),
+                    rs.getString("nome"),
+                    rs.getString("endereco"),
+                    rs.getString("telefone"),
+                    rs.getString("email"),
                 });
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar o livro.");
-        }
+            JOptionPane.showMessageDialog(this, "Erro ao carregar leitores.");
+        }       
+        
     }
     
-    private Livro obterDadosLinha(int linha) {        
-        String titulo = (String) modeloTabela.getValueAt(linha, 0);        
-        String autor = (String) modeloTabela.getValueAt(linha, 1); 
-        String genero = (String) modeloTabela.getValueAt(linha, 2); 
-        String editora = (String) modeloTabela.getValueAt(linha, 3); 
-        String num_paginas = (String) modeloTabela.getValueAt(linha, 4); 
-        String ano = (String) modeloTabela.getValueAt(linha, 5);
-        String isbn = (String) modeloTabela.getValueAt(linha, 6);
+    private Leitor obterDadosLinha(int linha) {
         
-        return new Livro(titulo, autor, genero, editora, num_paginas, ano, isbn);
-    }    
-
+        String registro = (String) modeloTabela.getValueAt(linha, 0);        
+        String nome = (String) modeloTabela.getValueAt(linha, 1); 
+        String endereco = (String) modeloTabela.getValueAt(linha, 2); 
+        String telefone = (String) modeloTabela.getValueAt(linha, 3); 
+        String email = (String) modeloTabela.getValueAt(linha, 4); 
+        
+        return new Leitor(nome, endereco, telefone, email, registro);
+    }
     
-    private void excluirLivro() {
-        int linha = tabelaLivros.getSelectedRow();
+    private void excluirLeitor() {
+        int linha = tabelaLeitor.getSelectedRow();
         
         String urlBD = "jdbc:mysql://localhost:3306/biblioteca";
         String usuarioBD = "root";
         String senhaBD = "usjt";        
         
         if (linha < 0) {
-            JOptionPane.showMessageDialog(this, "Selecione um livro para excluir.");
+            JOptionPane.showMessageDialog(this, "Selecione um leitor para excluir.");
             return;
         }
-        String titulo = modeloTabela.getValueAt(linha, 0).toString();
+        String registro = modeloTabela.getValueAt(linha, 0).toString();
         int confirm = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?", "Confirmação", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             try (Connection conn = DriverManager.getConnection(urlBD, usuarioBD, senhaBD)) {
-                String sql = "DELETE FROM livro WHERE titulo = ?";
+                String sql = "DELETE FROM leitor WHERE registro = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, titulo);
+                stmt.setString(1, registro);
                 stmt.executeUpdate();
-                carregarLivros();
-                JOptionPane.showMessageDialog(this, "Livro excluído com sucesso.");
+                carregarLeitores();
+                JOptionPane.showMessageDialog(this, "Leitor excluído com sucesso.");
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Erro ao excluir o livro.");
+                JOptionPane.showMessageDialog(this, "Erro ao excluir o leitor.");
             }
         }
     }
     
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new LivroTela("NomeUsuario", "123456").setVisible(true);
-        });
-    }
+    
     
 }
