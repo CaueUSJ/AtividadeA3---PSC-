@@ -74,24 +74,24 @@ public class LeitorTela extends JFrame {
         add(painelCentro, BorderLayout.CENTER);
         
         // === Eventos dos botões === 
-        /*
+
         btnAdicionar.addActionListener(e -> {
-            new UsuarioFormDialog(null).setVisible(true);
-            carregarUsuarios();
+            new LeitorFormDialog(null).setVisible(true);
+            carregarLeitores();
         });
         
         btnEditar.addActionListener(e -> {
-            int linhaSelecionada = tabelaUsuarios.getSelectedRow();
+            int linhaSelecionada = tabelaLeitor.getSelectedRow();
             if (linhaSelecionada >= 0) {
-                Usuario usuarioSelecionado = obterDadosLinha(linhaSelecionada);
-                new UsuarioFormDialog(usuarioSelecionado).setVisible(true);
+                Leitor leitorSelecionado = obterDadosLinha(linhaSelecionada);
+                new LeitorFormDialog(leitorSelecionado).setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this, "Selecione um usuário para editar.");
+                JOptionPane.showMessageDialog(this, "Selecione um leitor para editar.");
                 return;
             }
-            carregarUsuarios();
+            carregarLeitores();
         });
-*/
+
         
         btnExcluir.addActionListener(e -> excluirLeitor());
         btnAtualizar.addActionListener(e -> carregarLeitores());

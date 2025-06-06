@@ -71,6 +71,7 @@ public class DashboardTela extends JFrame{
         
         
         btnEmprestimos.addActionListener(e -> {
+            dispose();
             new EmprestimoTela(nomeUsuario, registroUsuario).setVisible(true); // Abrir tela de empréstimos
         });
         
