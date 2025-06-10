@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS biblioteca;
 USE biblioteca;
 
-Drop table pais;
+Drop table emprestimo;
 
 CREATE TABLE IF NOT EXISTS usuario (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -21,8 +21,6 @@ CREATE TABLE IF NOT EXISTS leitor (
     email VARCHAR(50),
     registro int not null
 );
-
-ALTER TABLE usuario ADD COLUMN registro VARCHAR(20);
 
 CREATE TABLE IF NOT EXISTS livro (
     id_livro INT PRIMARY KEY AUTO_INCREMENT,
@@ -45,11 +43,22 @@ CREATE TABLE IF NOT EXISTS emprestimo (
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
+CREATE TABLE emprestimo (
+    id_emprestimo INT PRIMARY KEY AUTO_INCREMENT,
+    id_leitor int,
+    id_livro INT,
+    data_emprestimo DATE,
+    data_devolucao DATE,
+    devolvido BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (id_leitor) REFERENCES leitor(id_leitor),
+    FOREIGN KEY (id_livro) REFERENCES livro(id_livro)
+);
+
 SELECT * FROM livro;
 SELECT * FROM usuario;
 SELECT * FROM leitor;
 
-ALTER TABLE usuario CHANGE COLUMN senha senha varchar(20) not null;
+ALTER TABLE usuario CHANGE COLUMN registro registro varchar(20) not null;
 
 DELETE FROM livro WHERE id_autor = 2;
 

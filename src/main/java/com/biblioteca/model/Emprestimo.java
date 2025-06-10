@@ -2,18 +2,39 @@
 package com.biblioteca.model;
 
 import jakarta.persistence.*;
+import java.sql.Date;
 
 @Entity                 // Diz ao Spring que essa classe representa uma tabela.
 @Table(name = "emprestimo")  // Liga a entidade à tabela livro no banco.
 public class Emprestimo {
+    
     @Id                                                  // Indica qual atributo é a chave primária.
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // Indica que o atributo é auto incrementado.
     private int id_emprestimo;
     
-    private String data_emprestimo;
-    private String data_devolucao;
-    private int id_usuario;
+    private Date dataEmprestimo;
+    private Date dataDevolucao;
+    private int id_leitor;
     private int id_livro;
+    private boolean devolvido;
+
+    
+    public Emprestimo(int id_leitor, int id_livro, Date dataEmprestimo, Date dataDevolucao, boolean devolvido) {
+        this.id_leitor = id_leitor;
+        this.id_livro = id_livro;
+        this.dataEmprestimo = dataEmprestimo;
+        this.dataDevolucao = dataDevolucao;
+        this.devolvido = devolvido;
+    }
+
+    public Emprestimo(int id_emprestimo, int id_leitor, int id_livro, Date dataEmprestimo, Date dataDevolucao, boolean devolvido) {
+        this.id_emprestimo = id_emprestimo;
+        this.id_leitor = id_leitor;
+        this.id_livro = id_livro;
+        this.dataEmprestimo = dataEmprestimo;
+        this.dataDevolucao = dataDevolucao;
+        this.devolvido = devolvido;
+    }
     
     public int getId_emprestimo(){
         return this.id_emprestimo;
@@ -23,28 +44,28 @@ public class Emprestimo {
         this.id_emprestimo = id_emprestimo;
     }
     
-    public String getData_emprestimo(){
-        return this.data_emprestimo;
+    public Date getDataEmprestimo(){
+        return this.dataEmprestimo;
     }
     
-    public void setData_emprestimo(String data_emprestimo){
-        this.data_emprestimo = data_emprestimo;
+    public void setDataEmprestimo(Date dataEmprestimo){
+        this.dataEmprestimo = dataEmprestimo;
     }
     
-    public String getData_devolucao(){
-        return this.data_devolucao;
+    public Date getDataDevolucao(){
+        return this.dataDevolucao;
     }
     
-    public void setData_devolucao(String data_devolucao){
-        this.data_devolucao = data_devolucao;
+    public void setDataDevolucao(Date dataDevolucao){
+        this.dataDevolucao = dataDevolucao;
     }
     
-    public int getId_usuario(){
-        return this.id_usuario;
+    public int getId_leitor(){
+        return this.id_leitor;
     }
     
-    public void setId_usuario(int id_usuario){
-        this.id_usuario = id_usuario;
+    public void setId_leitor(int id_leitor){
+        this.id_leitor = id_leitor;
     }
     
     public int getId_livro(){
@@ -53,6 +74,14 @@ public class Emprestimo {
     
     public void setId_livro(int id_livro){
         this.id_livro = id_livro;
+    }
+    
+    public boolean isDevolvido() {
+    return devolvido;
+    }
+
+    public void setDevolvido(boolean devolvido) {
+        this.devolvido = devolvido;
     }
     
 }
