@@ -33,16 +33,6 @@ CREATE TABLE IF NOT EXISTS livro (
     autor VARCHAR(50)
 );
 
-CREATE TABLE IF NOT EXISTS emprestimo (
-    id_emprestimo INT PRIMARY KEY AUTO_INCREMENT,
-    data_emprestimo DATE,
-    data_devolucao DATE,
-    id_livro INT,
-    id_usuario INT,
-    FOREIGN KEY (id_livro) REFERENCES livro(id_livro),
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
-);
-
 CREATE TABLE emprestimo (
     id_emprestimo INT PRIMARY KEY AUTO_INCREMENT,
     id_leitor int,
@@ -57,6 +47,7 @@ CREATE TABLE emprestimo (
 SELECT * FROM livro;
 SELECT * FROM usuario;
 SELECT * FROM leitor;
+SELECT * FROM emprestimo;
 
 ALTER TABLE usuario CHANGE COLUMN registro registro varchar(20) not null;
 
@@ -65,5 +56,6 @@ DELETE FROM livro WHERE id_autor = 2;
 INSERT INTO Livro (Titulo, ano, num_paginas, isbn, editora, genero, autor) VALUES ('Dragon Ball Vol.3 ', 1984, 300, "978857", "Panini", "Aventura", "Akira");
 INSERT INTO usuario (nome, endereco, telefone, email, registro, senha) VALUES ('ADM', 'Rua Y', '(11) 123456789', 'danilo@email.com', 'adm', 'adm');
 INSERT INTO leitor (nome, endereco, telefone, email, registro) VALUES ('Leitor', 'Rua Y', '(11) 123456789', 'leitor@email.com', '12345');
+INSERT INTO emprestimo (id_leitor, id_livro, data_emprestimo, data_devolucao, devolvido) VALUES (1, 3, "2025-06-01", null , FALSE);
 
 #Realizar o o que, o porque e o como do projeto

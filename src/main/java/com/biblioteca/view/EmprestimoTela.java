@@ -5,6 +5,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
+import com.biblioteca.dao.EmprestimoDAO;
+import com.biblioteca.dao.LeitorDAO;
+import com.biblioteca.dao.LivroDAO;
+import com.biblioteca.model.Emprestimo;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class EmprestimoTela extends JFrame {
     
@@ -40,8 +46,17 @@ public class EmprestimoTela extends JFrame {
         JPanel painelCentro = new JPanel(new BorderLayout());
         
         // Esquerda - Tabela
-        modeloTabela = new DefaultTableModel(new String[]{"Leitor", "Livro", "Data Empréstimo", "Data Devolução"}, 0);
+        modeloTabela = new DefaultTableModel(new String[]{"ID", "Leitor", "Livro", "Data Empréstimo", "Data Devolução"}, 0) {
+            @Override
+             public boolean isCellEditable(int row, int column) { 
+            return false;
+             }            
+        };
+        
         tabelaEmprestimos = new JTable(modeloTabela);
+        tabelaEmprestimos.getColumnModel().getColumn(0).setMinWidth(0);
+        tabelaEmprestimos.getColumnModel().getColumn(0).setMaxWidth(0);
+        tabelaEmprestimos.getColumnModel().getColumn(0).setPreferredWidth(0);
         JScrollPane scrollTabela = new JScrollPane(tabelaEmprestimos);
         painelCentro.add(scrollTabela, BorderLayout.CENTER);
         
@@ -75,14 +90,78 @@ public class EmprestimoTela extends JFrame {
         
         // Ações
         //btnNovo.addActionListener(e -> new EmprestimoFormDialog());
-        //btnAtualizar.addActionListener(e -> atualizarTabela());
+        btnAtualizar.addActionListener(e -> atualizarTabela());
 
-        //btnDevolver.addActionListener(e -> marcarComoDevolvido());
+        btnDevolver.addActionListener(e -> marcarComoDevolvido());
 
        // add(scroll, BorderLayout.CENTER);
        // painelCentro.add(painelBotoes, BorderLayout.EAST);
 
+        atualizarTabela();
         setVisible(true);
         
     }
+    
+    private void atualizarTabela() {
+        modeloTabela.setRowCount(0); // Limpa a tabela
+
+        EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+        LeitorDAO leitorDAO = new LeitorDAO();
+        LivroDAO livroDAO = new LivroDAO();
+
+        List<Emprestimo> lista = emprestimoDAO.listarTodos(); 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        for (Emprestimo emp : lista) {
+            String registroLeitor = "Desconhecido";
+            String tituloLivro = "Desconhecido";
+
+            var leitor = leitorDAO.buscarPorId(emp.getId_leitor());
+            var livro = livroDAO.buscarPorId(emp.getId_livro());
+
+            if (leitor != null) {
+                registroLeitor = leitor.getRegistro();
+            }
+
+            if (livro != null) {
+                tituloLivro = livro.getTitulo();
+            }
+
+            String dataEmprestimo = sdf.format(emp.getDataEmprestimo());
+            String dataDevolucao = emp.getDataDevolucao() != null
+                    ? sdf.format(emp.getDataDevolucao())
+                    : "Pendente";
+
+            modeloTabela.addRow(new Object[]{emp.getId_emprestimo(), registroLeitor, tituloLivro, dataEmprestimo, dataDevolucao});
+        }
+    }
+    
+    private void marcarComoDevolvido() {
+        int linha = tabelaEmprestimos.getSelectedRow();
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um empréstimo na tabela.");
+            return;
+        }
+
+        // Coluna 0 é o ID (oculta); coluna 2 é o título
+        int idEmprestimo = (Integer) modeloTabela.getValueAt(linha, 0);
+        String tituloLivro = (String) modeloTabela.getValueAt(linha, 2);
+
+        int conf = JOptionPane.showConfirmDialog(
+                this,
+                "Marcar o livro \"" + tituloLivro + "\" como devolvido?",
+                "Confirmar Devolução",
+                JOptionPane.YES_NO_OPTION);
+
+        if (conf == JOptionPane.YES_OPTION) {
+            EmprestimoDAO dao = new EmprestimoDAO();
+            if (dao.marcarComoDevolvido(idEmprestimo)) {
+                JOptionPane.showMessageDialog(this, "Devolução registrada com sucesso!");
+                atualizarTabela();   // recarrega a lista
+            } else {
+                JOptionPane.showMessageDialog(this, "Falha ao registrar devolução.");
+            }
+        }
+    }
+    
 }

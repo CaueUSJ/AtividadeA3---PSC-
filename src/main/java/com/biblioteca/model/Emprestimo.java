@@ -1,6 +1,7 @@
 
 package com.biblioteca.model;
 
+import com.biblioteca.model.Livro;
 import jakarta.persistence.*;
 import java.sql.Date;
 
@@ -64,12 +65,22 @@ public class Emprestimo {
         return this.id_leitor;
     }
     
+    public String getRegistroLeitor(){
+        Leitor leitor = new Leitor();
+        return leitor.getRegistro();
+    }
+    
     public void setId_leitor(int id_leitor){
         this.id_leitor = id_leitor;
     }
     
     public int getId_livro(){
         return this.id_livro;
+    }
+    
+    public String getTituloLivro(){
+        Livro livro = new Livro();
+        return livro.getTitulo();
     }
     
     public void setId_livro(int id_livro){

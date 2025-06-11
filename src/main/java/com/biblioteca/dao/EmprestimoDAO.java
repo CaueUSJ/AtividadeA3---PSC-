@@ -58,7 +58,7 @@ public class EmprestimoDAO {
     }
     
     public boolean marcarComoDevolvido(int idEmprestimo) {
-        String sql = "UPDATE emprestimo SET devolvido = TRUE WHERE id_emprestimo = ?";
+        String sql = "UPDATE emprestimo SET devolvido = TRUE, data_devolucao = CURDATE() WHERE id_emprestimo = ?";
 
         try (Connection conn = DriverManager.getConnection(url, usuario, senha);
              PreparedStatement stmt = conn.prepareStatement(sql)) {

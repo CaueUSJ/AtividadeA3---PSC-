@@ -17,12 +17,26 @@ public class Leitor {
     private String email;
     private String registro;
     
+    public Leitor(int id_leitor, String nome, String registro, String telefone, String email, String endereco){
+        this.id_leitor = id_leitor;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.email = email;
+        this.registro = registro;
+    }
+
+    
     public Leitor(String nome, String endereco, String telefone, String email, String registro){
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
         this.email = email;
         this.registro = registro;
+    }
+    
+    public Leitor(){
+        
     }
     
     public int getId_leitor(){

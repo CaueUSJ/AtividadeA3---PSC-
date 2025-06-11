@@ -27,7 +27,20 @@ public class Livro {
         this.num_paginas = num_paginas;
         this.ano = ano;
         this.isbn = isbn;
-    }
+       }
+       
+       public Livro(int id_livro, String titulo, String autor, String editora, String ano, String genero){
+        this.id_livro = id_livro;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.genero = genero;
+        this.editora = editora;
+        this.ano = ano;
+       }
+       
+       public Livro() {
+           
+       }
        
        public int getId_livro(){
            return this.id_livro;
