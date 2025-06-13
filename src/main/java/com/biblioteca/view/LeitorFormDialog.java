@@ -101,7 +101,7 @@ public class LeitorFormDialog extends JFrame {
                     JOptionPane.showMessageDialog(this, "Leitor atualizado com sucesso");
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Falha 5.");
+                    JOptionPane.showMessageDialog(this, "Não foi possivel atualizar leitor.");
                 }
                 
             } else {
@@ -110,13 +110,13 @@ public class LeitorFormDialog extends JFrame {
                     JOptionPane.showMessageDialog(this, "Leitor salvo com sucesso!");
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Falha 3.");
+                    JOptionPane.showMessageDialog(this, "Registro Repetido!");
                 }
             }            
             
             
         }  catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Falha 1.");
+            JOptionPane.showMessageDialog(this, "Falha!");
         }
         
     }
@@ -141,7 +141,7 @@ public class LeitorFormDialog extends JFrame {
             return rows > 0;
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Falha 4.");
+            JOptionPane.showMessageDialog(this, "Falha.");
             return false;
         }
         
@@ -168,7 +168,7 @@ public class LeitorFormDialog extends JFrame {
             return rows > 0;
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Falha 2.");
+            JOptionPane.showMessageDialog(this, "Falha.");
             return false;
         }        
         
