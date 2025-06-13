@@ -56,6 +56,6 @@ DELETE FROM livro WHERE id_autor = 2;
 INSERT INTO Livro (Titulo, ano, num_paginas, isbn, editora, genero, autor) VALUES ('Dragon Ball Vol.3 ', 1984, 300, "978857", "Panini", "Aventura", "Akira");
 INSERT INTO usuario (nome, endereco, telefone, email, registro, senha) VALUES ('ADM', 'Rua Y', '(11) 123456789', 'danilo@email.com', 'adm', 'adm');
 INSERT INTO leitor (nome, endereco, telefone, email, registro) VALUES ('Leitor', 'Rua Y', '(11) 123456789', 'leitor@email.com', '12345');
-INSERT INTO emprestimo (id_leitor, id_livro, data_emprestimo, data_devolucao, devolvido) VALUES (1, 3, "2025-06-01", null , FALSE);
+INSERT INTO emprestimo (id_leitor, id_livro, data_emprestimo, data_devolucao, devolvido) VALUES (1, 3, "2025-05-01", null , FALSE);
 
 #Realizar o o que, o porque e o como do projeto

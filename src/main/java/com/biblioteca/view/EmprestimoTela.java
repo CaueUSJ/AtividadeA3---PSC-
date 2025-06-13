@@ -46,7 +46,7 @@ public class EmprestimoTela extends JFrame {
         JPanel painelCentro = new JPanel(new BorderLayout());
         
         // Esquerda - Tabela
-        modeloTabela = new DefaultTableModel(new String[]{"ID", "Leitor", "Livro", "Data Empréstimo", "Data Devolução"}, 0) {
+        modeloTabela = new DefaultTableModel(new String[]{"ID", "Leitor", "Livro", "Data Empréstimo", "Data Devolução", "Devolvido"}, 0) {
             @Override
              public boolean isCellEditable(int row, int column) { 
             return false;
@@ -136,8 +136,8 @@ public class EmprestimoTela extends JFrame {
             String dataDevolucao = emp.getDataDevolucao() != null
                     ? sdf.format(emp.getDataDevolucao())
                     : "Pendente";
-
-            modeloTabela.addRow(new Object[]{emp.getId_emprestimo(), registroLeitor, tituloLivro, dataEmprestimo, dataDevolucao});
+            String devolvido = emp.isDevolvido() ? "Sim" : "Não";
+            modeloTabela.addRow(new Object[]{emp.getId_emprestimo(), registroLeitor, tituloLivro, dataEmprestimo, dataDevolucao, devolvido});
         }
     }
     
