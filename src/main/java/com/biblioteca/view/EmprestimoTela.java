@@ -89,7 +89,12 @@ public class EmprestimoTela extends JFrame {
         
         
         // Ações
-        //btnNovo.addActionListener(e -> new EmprestimoFormDialog());
+        btnNovo.addActionListener(e -> {
+            EmprestimoFormDialog dialog = new EmprestimoFormDialog(this);
+            dialog.setVisible(true);
+            atualizarTabela(); // Atualiza a lista após o cadastro
+        });
+        
         btnAtualizar.addActionListener(e -> atualizarTabela());
 
         btnDevolver.addActionListener(e -> marcarComoDevolvido());

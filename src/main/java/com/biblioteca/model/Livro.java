@@ -42,6 +42,11 @@ public class Livro {
            
        }
        
+       @Override
+       public String toString() {
+            return titulo; // ou: return titulo + " - " + autor;
+       }
+       
        public int getId_livro(){
            return this.id_livro;
        }

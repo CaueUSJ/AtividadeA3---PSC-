@@ -39,6 +39,11 @@ public class Leitor {
         
     }
     
+    @Override
+    public String toString() {
+        return nome; // ou return nome + " (" + registro + ")";
+    }
+    
     public int getId_leitor(){
         return this.id_leitor;
     }

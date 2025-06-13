@@ -20,6 +20,10 @@ public class Emprestimo {
     private boolean devolvido;
 
     
+    public Emprestimo() {
+        
+    }
+    
     public Emprestimo(int id_leitor, int id_livro, Date dataEmprestimo, Date dataDevolucao, boolean devolvido) {
         this.id_leitor = id_leitor;
         this.id_livro = id_livro;
