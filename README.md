@@ -29,31 +29,43 @@ Desenvolvido em Java com Swing, o projeto utiliza banco de dados MySQL para arma
 O banco de dados MySQL deve conter as seguintes tabelas:
 
 ```sql
-CREATE TABLE leitor (
-    id_leitor INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100),
-    registro VARCHAR(20),
+CREATE TABLE IF NOT EXISTS usuario (
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(20),
+    endereco VARCHAR(100),
     telefone VARCHAR(20),
-    email VARCHAR(100),
-    endereco TEXT
+    email VARCHAR(50),
+    senha VARCHAR(20) not null,
+    registro varchar(20) not null
 );
 
-CREATE TABLE livro (
+CREATE TABLE IF NOT EXISTS leitor (
+    id_leitor INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(20),
+    endereco VARCHAR(100),
+    telefone VARCHAR(20),
+    email VARCHAR(50),
+    registro int not null
+);
+
+CREATE TABLE IF NOT EXISTS livro (
     id_livro INT PRIMARY KEY AUTO_INCREMENT,
-    titulo VARCHAR(100),
-    autor VARCHAR(100),
-    editora VARCHAR(100),
-    ano VARCHAR(10),
-    genero VARCHAR(50)
+    titulo VARCHAR(200),
+    ano INT,
+    num_paginas INT,
+    isbn VARCHAR(50),
+    editora VARCHAR(50),
+    genero VARCHAR(50),
+    autor VARCHAR(50)
 );
 
 CREATE TABLE emprestimo (
     id_emprestimo INT PRIMARY KEY AUTO_INCREMENT,
-    id_leitor INT,
+    id_leitor int,
     id_livro INT,
     data_emprestimo DATE,
     data_devolucao DATE,
-    devolvido BOOLEAN,
+    devolvido BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (id_leitor) REFERENCES leitor(id_leitor),
     FOREIGN KEY (id_livro) REFERENCES livro(id_livro)
 );
