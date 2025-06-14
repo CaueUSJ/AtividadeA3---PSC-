@@ -28,7 +28,7 @@ Desenvolvido em Java com Swing, o projeto utiliza banco de dados MySQL para arma
 
 O banco de dados MySQL deve conter as seguintes tabelas:
 
-sql
+```sql
 CREATE TABLE leitor (
     id_leitor INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100),
@@ -57,6 +57,7 @@ CREATE TABLE emprestimo (
     FOREIGN KEY (id_leitor) REFERENCES leitor(id_leitor),
     FOREIGN KEY (id_livro) REFERENCES livro(id_livro)
 );
+```
 
 Este projeto foi desenvolvido como prática de aprendizado em Java desktop, com foco em boas práticas de programação, organização em camadas e uso de banco de dados relacional.
 
