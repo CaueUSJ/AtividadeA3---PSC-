@@ -15,11 +15,12 @@ Desenvolvido em Java com Swing, o projeto utiliza banco de dados MySQL para arma
 
 ## ✅ Funcionalidades
 
+- Cadastro de **Administradores**
 - Cadastro de **leitores**
 - Cadastro de **livros**
 - Registro de **empréstimos**
 - Marcar **devoluções**
-- Interface com **tabelas
+- Interface com **tabelas**
 - Controle de status de devolução (devolvido ou pendente)
 
 ---
@@ -75,7 +76,7 @@ Este projeto foi desenvolvido como prática de aprendizado em Java desktop, com 
 
 ---
 
-🙋‍♂️ Autor
+🙋‍♂️ Autor: 
 Cauê Lopes Justo
 RA: 82329174
 
