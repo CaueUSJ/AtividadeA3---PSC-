@@ -5,7 +5,7 @@ Desenvolvido em Java com Swing, o projeto utiliza banco de dados MySQL para arma
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Java** (JDK 8+)
+- **Java** (JDK 17+)
 - **Swing** (para a interface gráfica)
 - **JDBC** (para conexão com o MySQL)
 - **MySQL** (como banco de dados relacional)
