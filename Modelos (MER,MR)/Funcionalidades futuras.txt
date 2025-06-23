@@ -1,0 +1,12 @@
+- Adicionar posibilidade de adicionar mais de um livro para emprestimo. Acrescentar um "+" para aparecer um "Livro 2", "Livro 3", etc. Colocar um limite de quantos livros pode pegar emprestado.
+
+- Adicionar mais de um autor para um mesmo livro.
+
+- Adicionar uma brra de busca nas telas, para filtrar autores, paises, generos, editoras, etc.
+
+- mostrar um historico completo de todos os emprestimos.
+
+- Na tela de emprestimo mostrar só os emprestimos não devolvidos.
+
+- Criar alertas de emprestimos que passaram da data de devolução.
+
